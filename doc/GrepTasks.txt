@@ -1,0 +1,100 @@
+*GrepTasks.txt*          Summary sentence.
+			^ Start here. v Center this.
+		       GREP TASKS    by Ingo Karkat
+								*GrepTasks.vim*
+description			|GrepTasks-description|
+usage				|GrepTasks-usage|
+installation			|GrepTasks-installation|
+configuration			|GrepTasks-configuration|
+integration			|GrepTasks-integration|
+limitations			|GrepTasks-limitations|
+known problems			|GrepTasks-known-problems|
+todo				|GrepTasks-todo|
+history				|GrepTasks-history|
+
+==============================================================================
+DESCRIPTION				       *GrepTasks-description*
+
+This plugin ...
+
+HOW IT WORKS								     *
+
+RELATED WORKS								     *
+
+==============================================================================
+USAGE						     *GrepTasks-usage*
+
+:GrepHereTasks[!] [{pattern}]
+			Search for tasks and TODOs in the current buffer and
+			set the error list to the matches.
+:ArgGrepTasks[!] [{pattern}]
+			Search for tasks and TODOs in all files from the
+			|argument-list| and set the error list to the matches.
+:BufGrepTasks[!] [{pattern}]
+			Search for tasks and TODOs in all listed buffers and
+			set the error list to the matches.
+:WinGrepTasks[!] [{pattern}]
+			Search for tasks and TODOs in all buffers visible in
+			the current tab and set the error list to the matches.
+:TabGrepTasks[!] [{pattern}]
+			Search for tasks and TODOs in all buffers visible in
+			all tab pages and set the error list to the matches.
+
+:GrepTasks[!] {file} ...
+			Search for tasks and TODOs in the files {file} ... and
+			set the error list to the matches.
+
+EXAMPLE						   *GrepTasks-example*
+
+==============================================================================
+INSTALLATION				      *GrepTasks-installation*
+
+This script is packaged as a |vimball|. If you have the "gunzip" decompressor
+in your PATH, simply edit the *.vba.gz package in Vim; otherwise, decompress
+the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
+vimball or via the |:UseVimball| command. >
+    vim GrepTasks.vba.gz
+    :so %
+To uninstall, use the |:RmVimball| command.
+
+DEPENDENCIES				      *GrepTasks-dependencies*
+
+- Requires Vim 7.0 or higher.
+
+==============================================================================
+CONFIGURATION				     *GrepTasks-configuration*
+
+For a permanent configuration, put the following commands into your |vimrc|:
+
+						*g:GrepTasks_MyOption*
+To change the default TODO from FOO to BAR, use: >
+    let g:GrepTasks_MyOption = 'BAR'
+<
+==============================================================================
+INTEGRATION				       *GrepTasks-integration*
+
+==============================================================================
+LIMITATIONS				       *GrepTasks-limitations*
+
+KNOWN PROBLEMS				    *GrepTasks-known-problems*
+
+TODO						      *GrepTasks-todo*
+
+IDEAS						     *GrepTasks-ideas*
+
+==============================================================================
+HISTORY						   *GrepTasks-history*
+
+GOAL
+First published version.
+
+0.01	19-Mar-2012
+Started development.
+
+==============================================================================
+Copyright: (C) 2012 Ingo Karkat
+The VIM LICENSE applies to this script; see |copyright|.
+
+Maintainer:	Ingo Karkat <ingo@karkat.de>
+==============================================================================
+ vim:tw=78:ts=8:ft=help:norl:
