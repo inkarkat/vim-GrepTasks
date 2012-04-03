@@ -15,36 +15,49 @@ history				|GrepTasks-history|
 ==============================================================================
 DESCRIPTION					       *GrepTasks-description*
 
-This plugin ...
+This plugin defines commands to search for tasks and TODO markers embedded in
+files, and populates the quickfix list with the resulting lines. Most IDEs
+offer such a view, too.
 
 HOW IT WORKS								     *
 
+The |:vimgrep| command is used with a predefined pattern. Search targets for
+arguments, listed buffers, windows in the current tab page or all tab pages
+can be used (leveraging the |GrepCommands.vim| plugin).
+
 RELATED WORKS								     *
+
+To move to individual tasks and TODO markers in the current buffer without
+building and going through the quickfix list, you can use the companion
+|TaskMotions.vim| plugin (vimscript #0000).
 
 ==============================================================================
 USAGE							     *GrepTasks-usage*
-
+							      *:GrepHereTasks*
 :GrepHereTasks[!] [{pattern}]
 			Search for tasks and TODOs in the current buffer and
 			set the error list to the matches.
+							       *:ArgGrepTasks*
 :ArgGrepTasks[!] [{pattern}]
 			Search for tasks and TODOs in all files from the
 			|argument-list| and set the error list to the matches.
+							       *:BufGrepTasks*
 :BufGrepTasks[!] [{pattern}]
 			Search for tasks and TODOs in all listed buffers and
 			set the error list to the matches.
+							       *:WinGrepTasks*
 :WinGrepTasks[!] [{pattern}]
 			Search for tasks and TODOs in all buffers visible in
 			the current tab and set the error list to the matches.
+							       *:TabGrepTasks*
 :TabGrepTasks[!] [{pattern}]
 			Search for tasks and TODOs in all buffers visible in
 			all tab pages and set the error list to the matches.
 
+								  *:GrepTasks*
 :GrepTasks[!] [/{pattern}/] {file} ...
 			Search for tasks and TODOs in the files {file} ... and
 			set the error list to the matches.
-
-EXAMPLE							   *GrepTasks-example*
 
 ==============================================================================
 INSTALLATION					      *GrepTasks-installation*
@@ -60,19 +73,21 @@ To uninstall, use the |:RmVimball| command.
 DEPENDENCIES					      *GrepTasks-dependencies*
 
 - Requires Vim 7.0 or higher.
+- Requires the GrepCommands plugin (vimscript #0000)
+- Requires the GrepHere plugin (vimscript #0000)
 
 ==============================================================================
 CONFIGURATION					     *GrepTasks-configuration*
 
 For a permanent configuration, put the following commands into your |vimrc|:
 
-			*g:GrepTasks_PatternTemplate*
+						 *g:GrepTasks_PatternTemplate*
 Tasks and TODO markers are detected by a regular expression, which is built
 from a |printf()|-style template, into which the optional filter pattern is
 inserted at the %s keyword: >
     let g:GrepTasks_PatternTemplate = '\<TODO:\s\?.*%s'
 <
-			*g:GrepTasks_JumpToFirst*
+						     *g:GrepTasks_JumpToFirst*
 By default, the quickfix list is only filled with the found tasks; to
 automatically jump to the first found task, set: >
     let g:GrepTasks_JumpToFirst = 1
