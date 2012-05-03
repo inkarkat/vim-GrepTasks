@@ -29,7 +29,7 @@ RELATED WORKS								     *
 
 To move to individual tasks and TODO markers in the current buffer without
 building and going through the quickfix list, you can use the companion
-|TaskMotions.vim| plugin (vimscript #0000).
+|TaskMotions.vim| plugin (vimscript #3990).
 
 ==============================================================================
 USAGE							     *GrepTasks-usage*
