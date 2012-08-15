@@ -55,7 +55,7 @@ USAGE							     *GrepTasks-usage*
 			all tab pages and set the error list to the matches.
 
 								  *:GrepTasks*
-:GrepTasks[!] [/{pattern}/] {file} ...
+:VimGrepTasks[!] [/{pattern}/] {file} ...
 			Search for tasks and TODOs in the files {file} ... and
 			set the error list to the matches.
 
