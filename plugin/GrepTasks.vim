@@ -1,9 +1,9 @@
 " GrepTasks.vim: Grep for tasks and TODO markers.
 "
 " DEPENDENCIES:
-"   - ingogrep.vim plugin for :GrepHere command
-"   - GrepCommands.vim plugin for :ArgGrep, :BufGrep, :WinGrep, :TabGrep
-"     commands
+"   - GrepTasks.vim autoload script
+"   - GrepHere plugin for :GrepHere command
+"   - GrepCommands plugin for :ArgGrep, :BufGrep, :WinGrep, :TabGrep commands
 "
 " Copyright: (C) 2012 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -11,6 +11,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	004	25-Aug-2012	Change g:GrepTasks_JumpToFirst to more general
+"				g:GrepTasks_GrepFlags.
 "	003	04-May-2012	Rename :GrepTasks to :VimGrepTasks to make it
 "				clear which syntax for {file} is used.
 "	002	20-Mar-2012	Support optional /{pattern}/ for :GrepTasks.
@@ -27,38 +29,9 @@ let g:loaded_GrepTasks = 1
 if ! exists('g:GrepTasks_PatternTemplate')
     let g:GrepTasks_PatternTemplate =  '\C\<\%(FIXME\|TODO\|XXX\)\>:\?.*\&.*%s'
 endif
-if ! exists('g:GrepTasks_JumpToFirst')
-    let g:GrepTasks_JumpToFirst = 0
+if ! exists('g:GrepTasks_GrepFlags')
+    let g:GrepTasks_GrepFlags = 'gj'
 endif
-
-
-"- functions -------------------------------------------------------------------
-
-function! GrepTasks#Grep( count, grepCommand, pattern, ... )
-    let l:pattern = printf(g:GrepTasks_PatternTemplate, a:pattern)
-    try
-	execute (a:count ? a:count : '') . a:grepCommand '/' . escape(l:pattern, '/') . '/' . (g:GrepTasks_JumpToFirst ? '' : 'j') (a:0 ? a:1 : '')
-    catch /^Vim\%((\a\+)\)\=:E/
-	" v:exception contains what is normally in v:errmsg, but with extra
-	" exception source info prepended, which we cut away.
-	let v:errmsg = substitute(v:exception, '^Vim\%((\a\+)\)\=:', '', '')
-	echohl ErrorMsg
-	echomsg v:errmsg
-	echohl None
-    endtry
-endfunction
-
-function! GrepTasks#FileGrep( count, grepCommand, ... )
-    let l:pattern = ''
-    let l:filespecs = a:000
-
-    if a:1 =~# '^\%(\i\@!\S\).*\%(\i\@!\S\)$'
-	let l:pattern = substitute(a:1, '^\%(\i\@!\S\)\(.*\)\%(\i\@!\S\)$', '\1', '')
-	let l:filespecs = a:000[1:]
-    endif
-
-    call call('GrepTasks#Grep', [a:count, a:grepCommand, l:pattern] + l:filespecs)
-endfunction
 
 
 "- commands --------------------------------------------------------------------
@@ -68,6 +41,10 @@ command! -bang -count -nargs=? -complete=expression ArgGrepTasks  call GrepTasks
 command! -bang -count -nargs=? -complete=expression BufGrepTasks  call GrepTasks#Grep(<count>, 'BufGrep', <q-args>)
 command! -bang -count -nargs=? -complete=expression WinGrepTasks  call GrepTasks#Grep(<count>, 'WinGrep', <q-args>)
 command! -bang -count -nargs=? -complete=expression TabGrepTasks  call GrepTasks#Grep(<count>, 'TabGrep', <q-args>)
-command! -bang -count -nargs=+ -complete=file       VimGrepTasks  call GrepTasks#FileGrep(<count>, 'vimgrep', <f-args>)
+command! -bang -count -nargs=+ -complete=expression VimGrepTasks  call GrepTasks#FileGrep(<count>, 'vimgrep', <f-args>)
+" Note: Cannot use -complete=file for the last one (even though it would fit),
+" because that automatically unescapes the arguments (e.g. \# -> #), and we
+" cannot simply re-fnameescape() them, because they may contain wildcards, and
+" these would be escaped, then.
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
