@@ -11,6 +11,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	003	04-May-2012	Rename :GrepTasks to :VimGrepTasks to make it
+"				clear which syntax for {file} is used.
 "	002	20-Mar-2012	Support optional /{pattern}/ for :GrepTasks.
 "	001	19-Mar-2012	file creation
 
@@ -66,6 +68,6 @@ command! -bang -count -nargs=? -complete=expression ArgGrepTasks  call GrepTasks
 command! -bang -count -nargs=? -complete=expression BufGrepTasks  call GrepTasks#Grep(<count>, 'BufGrep', <q-args>)
 command! -bang -count -nargs=? -complete=expression WinGrepTasks  call GrepTasks#Grep(<count>, 'WinGrep', <q-args>)
 command! -bang -count -nargs=? -complete=expression TabGrepTasks  call GrepTasks#Grep(<count>, 'TabGrep', <q-args>)
-command! -bang -count -nargs=+ -complete=file       GrepTasks     call GrepTasks#FileGrep(<count>, 'vimgrep', <f-args>)
+command! -bang -count -nargs=+ -complete=file       VimGrepTasks  call GrepTasks#FileGrep(<count>, 'vimgrep', <f-args>)
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
