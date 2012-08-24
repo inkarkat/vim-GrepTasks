@@ -73,8 +73,8 @@ To uninstall, use the |:RmVimball| command.
 DEPENDENCIES					      *GrepTasks-dependencies*
 
 - Requires Vim 7.0 or higher.
-- Requires the GrepCommands plugin (vimscript #4173)
-- Requires the GrepHere plugin (vimscript #0000)
+- Requires the GrepCommands plugin (vimscript #4173).
+- Requires the GrepHere plugin (vimscript #4191).
 
 ==============================================================================
 CONFIGURATION					     *GrepTasks-configuration*
