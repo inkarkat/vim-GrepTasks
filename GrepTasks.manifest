@@ -1,0 +1,3 @@
+autoload/GrepTasks.vim
+plugin/GrepTasks.vim
+doc/GrepTasks.txt
