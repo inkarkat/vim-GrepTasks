@@ -11,7 +11,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
-"	004	25-Aug-2012	Change g:GrepTasks_JumpToFirst to more general
+"   1.00.004	25-Aug-2012	Change g:GrepTasks_JumpToFirst to more general
 "				g:GrepTasks_GrepFlags.
 "	003	04-May-2012	Rename :GrepTasks to :VimGrepTasks to make it
 "				clear which syntax for {file} is used.
@@ -41,10 +41,6 @@ command! -bang -count -nargs=? -complete=expression ArgGrepTasks  call GrepTasks
 command! -bang -count -nargs=? -complete=expression BufGrepTasks  call GrepTasks#Grep(<count>, 'BufGrep', <q-args>)
 command! -bang -count -nargs=? -complete=expression WinGrepTasks  call GrepTasks#Grep(<count>, 'WinGrep', <q-args>)
 command! -bang -count -nargs=? -complete=expression TabGrepTasks  call GrepTasks#Grep(<count>, 'TabGrep', <q-args>)
-command! -bang -count -nargs=+ -complete=expression VimGrepTasks  call GrepTasks#FileGrep(<count>, 'vimgrep', <f-args>)
-" Note: Cannot use -complete=file for the last one (even though it would fit),
-" because that automatically unescapes the arguments (e.g. \# -> #), and we
-" cannot simply re-fnameescape() them, because they may contain wildcards, and
-" these would be escaped, then.
+command! -bang -count -nargs=+ -complete=file       VimGrepTasks  call GrepTasks#FileGrep(<count>, 'vimgrep', <f-args>)
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
