@@ -2,6 +2,7 @@
 "
 " DEPENDENCIES:
 "   - escapings.vim autoload script
+"   - ingofileargs.vim autoload script
 "
 " Copyright: (C) 2012 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -39,25 +40,7 @@ function! GrepTasks#FileGrep( count, grepCommand, ... )
 	let l:fileglobs = a:000[1:]
     endif
 
-    " XXX: Due to -complete=file, the arguments have been automatically
-    " unescaped (e.g. \# -> #). We cannot simply re-fnameescape() them, because
-    " they may contain wildcards, and these would then be escaped, too. Instead,
-    " we must expand the file globs here, and then pass them on to have them
-    " escaped by GrepTasks#Grep(). Because glob() also understands and expands
-    " special Vim variables (#, %, <cword>), we need to skip globbing them. If
-    " they got in here, they must have been escaped by the user, otherwise
-    " -complete=file would have passed the expanded version already into here.
-    let l:filespecs = []
-    for l:fileglob in l:fileglobs
-	if l:fileglob =~# '^\%(%\|#\d\?\)\%(:\a\)*$\|^<\%(cfile\|cword\|cWORD\)>\%(:\a\)*$'
-	    call add(l:filespecs, l:fileglob)
-	else
-	    " Filter out directories to avoid a corresponding :vimgrep warning.
-	    call extend(l:filespecs, filter(split(glob(l:fileglob), "\n"), '! isdirectory(v:val)'))
-	endif
-    endfor
-
-    call call('GrepTasks#Grep', [a:count, a:grepCommand, l:pattern] + l:filespecs)
+    call call('GrepTasks#Grep', [a:count, a:grepCommand, l:pattern] + ingofileargs#ExpandGlobs(l:fileglobs))
 endfunction
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
