@@ -19,7 +19,7 @@
 function! GrepTasks#Grep( count, grepCommand, pattern, ... )
     let l:pattern = printf(g:GrepTasks_PatternTemplate, a:pattern)
     try
-	echomsg (a:count ? a:count : '') . a:grepCommand '/' . escape(l:pattern, '/') . '/' . g:GrepTasks_GrepFlags join(map(copy(a:000), 'escapings#fnameescape(v:val)'))
+	execute (a:count ? a:count : '') . a:grepCommand '/' . escape(l:pattern, '/') . '/' . g:GrepTasks_GrepFlags join(map(copy(a:000), 'escapings#fnameescape(v:val)'))
     catch /^Vim\%((\a\+)\)\=:E/
 	" v:exception contains what is normally in v:errmsg, but with extra
 	" exception source info prepended, which we cut away.
@@ -39,19 +39,21 @@ function! GrepTasks#FileGrep( count, grepCommand, ... )
 	let l:fileglobs = a:000[1:]
     endif
 
-    " Note: Due to -complete=file, the arguments have been automatically
+    " XXX: Due to -complete=file, the arguments have been automatically
     " unescaped (e.g. \# -> #). We cannot simply re-fnameescape() them, because
     " they may contain wildcards, and these would then be escaped, too. Instead,
-    " we must resolve the file globs here (unless it is a special Vim variable
-    " like #, which glob() also processes), and then pass them on to have them
-    " escaped by GrepTasks#Grep().
+    " we must expand the file globs here, and then pass them on to have them
+    " escaped by GrepTasks#Grep(). Because glob() also understands and expands
+    " special Vim variables (#, %, <cword>), we need to skip globbing them. If
+    " they got in here, they must have been escaped by the user, otherwise
+    " -complete=file would have passed the expanded version already into here.
     let l:filespecs = []
     for l:fileglob in l:fileglobs
-	if l:fileglob ==# expand(l:fileglob)
+	if l:fileglob =~# '^\%(%\|#\d\?\)\%(:\a\)*$\|^<\%(cfile\|cword\|cWORD\)>\%(:\a\)*$'
+	    call add(l:filespecs, l:fileglob)
+	else
 	    " Filter out directories to avoid a corresponding :vimgrep warning.
 	    call extend(l:filespecs, filter(split(glob(l:fileglob), "\n"), '! isdirectory(v:val)'))
-	else
-	    call add(l:filespecs, l:fileglob)
 	endif
     endfor
 
