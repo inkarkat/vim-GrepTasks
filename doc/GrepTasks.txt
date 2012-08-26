@@ -6,7 +6,6 @@ description			|GrepTasks-description|
 usage				|GrepTasks-usage|
 installation			|GrepTasks-installation|
 configuration			|GrepTasks-configuration|
-integration			|GrepTasks-integration|
 limitations			|GrepTasks-limitations|
 known problems			|GrepTasks-known-problems|
 todo				|GrepTasks-todo|
@@ -22,14 +21,15 @@ offer such a view, too.
 HOW IT WORKS								     *
 
 The |:vimgrep| command is used with a predefined pattern. Search targets for
-arguments, listed buffers, windows in the current tab page or all tab pages
-can be used (leveraging the |GrepCommands.vim| plugin).
+the current buffer, all arguments, listed buffers, windows in the current tab
+page or all tab pages can be used (leveraging the |GrepHere.vim| and
+|GrepCommands.vim| plugins).
 
-RELATED WORKS								     *
+SEE ALSO								     *
 
-To move to individual tasks and TODO markers in the current buffer without
-building and going through the quickfix list, you can use the companion
-|TaskMotions.vim| plugin (vimscript #3990).
+- To move to individual tasks and TODO markers in the current buffer without
+  building and going through the quickfix list, you can use the companion
+  |TaskMotions.vim| plugin (vimscript #3990).
 
 ==============================================================================
 USAGE							     *GrepTasks-usage*
@@ -63,10 +63,10 @@ USAGE							     *GrepTasks-usage*
 INSTALLATION					      *GrepTasks-installation*
 
 This script is packaged as a |vimball|. If you have the "gunzip" decompressor
-in your PATH, simply edit the *.vba.gz package in Vim; otherwise, decompress
+in your PATH, simply edit the *.vmb.gz package in Vim; otherwise, decompress
 the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
 vimball or via the |:UseVimball| command. >
-    vim GrepTasks.vba.gz
+    vim GrepTasks*.vmb.gz
     :so %
 To uninstall, use the |:RmVimball| command.
 
@@ -87,14 +87,11 @@ from a |printf()|-style template, into which the optional filter pattern is
 inserted at the %s keyword: >
     let g:GrepTasks_PatternTemplate = '\<TODO:\s\?.*%s'
 <
-						     *g:GrepTasks_JumpToFirst*
-By default, the quickfix list is only filled with the found tasks; to
-automatically jump to the first found task, set: >
-    let g:GrepTasks_JumpToFirst = 1
+						       *g:GrepTasks_GrepFlags*
+By default, the quickfix list is filled with all found tasks; the first found
+task isn't jumped to. You can adapt that by changing the |:vimgrep| flags: >
+    let g:GrepTasks_GrepFlags = 'gj'
 <
-==============================================================================
-INTEGRATION					       *GrepTasks-integration*
-
 ==============================================================================
 LIMITATIONS					       *GrepTasks-limitations*
 
@@ -107,7 +104,7 @@ IDEAS							     *GrepTasks-ideas*
 ==============================================================================
 HISTORY							   *GrepTasks-history*
 
-GOAL
+1.00	25-Aug-2012
 First published version.
 
 0.01	19-Mar-2012
