@@ -33,6 +33,11 @@ SEE ALSO								     *
 
 ==============================================================================
 USAGE							     *GrepTasks-usage*
+
+All commands search for case-sensitive occurrences of FIXME:, TODO:, and XXX:
+in the files. (This is customizable via |g:GrepTasks_PatternTemplate|).
+When the optional [{pattern}] is specified, only occurrences that contain the
+{pattern} after the marker keyword are included.
 							      *:GrepHereTasks*
 :GrepHereTasks[!] [{pattern}]
 			Search for tasks and TODOs in the current buffer and
@@ -104,7 +109,7 @@ IDEAS							     *GrepTasks-ideas*
 ==============================================================================
 HISTORY							   *GrepTasks-history*
 
-1.00	25-Aug-2012
+1.00	27-Aug-2012
 First published version.
 
 0.01	19-Mar-2012
