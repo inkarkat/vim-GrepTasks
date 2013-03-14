@@ -31,6 +31,11 @@ SEE ALSO								     *
   building and going through the quickfix list, you can use the companion
   |TaskMotions.vim| plugin (vimscript #3990).
 
+RELATED WORKS								     *
+
+- TaskList.vim (vimscript #2607) searches only the current file triggered by a
+  mapping, and displays in a scratch buffer.
+
 ==============================================================================
 USAGE							     *GrepTasks-usage*
 
