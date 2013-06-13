@@ -1,7 +1,6 @@
 " GrepTasks.vim: Grep for tasks and TODO markers.
 "
 " DEPENDENCIES:
-"   - escapings.vim autoload script
 "
 " Copyright: (C) 2012 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -9,6 +8,10 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.00.004	27-Aug-2012	To avoid that spaces in the optional pattern
+"				have to be escaped, do not first split off the
+"				firstArgument, but do a (mostly-correct) parsing
+"				for the /pattern/ on the entire arguments.
 "   1.00.003	26-Aug-2012	Don't use <f-args> and don't expand /
 "				fnameescape the file globs; as <q-args>, they
 "				are passed in in unescaped form; we just need to
@@ -37,13 +40,14 @@ function! GrepTasks#Grep( count, grepCommand, pattern, ... )
 endfunction
 
 function! GrepTasks#FileGrep( count, grepCommand, arguments )
-    let l:pattern = ''
-    let l:fileglobs = a:arguments
-    let l:firstArgument = escapings#fnameunescape(matchstr(a:arguments, '^.\{-}\ze\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<! '))
+    let [l:pattern, l:fileglobs] = ['', a:arguments]
 
-    if l:firstArgument =~# '^\(\i\@!\S\).*\1$'
-	let l:pattern = substitute(l:firstArgument, '^\(\i\@!\S\)\(.*\)\1$', '\2', '')
-	let l:fileglobs = matchstr(a:arguments, '^.\{-}\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<! \zs.*$')
+    let l:optionalPatternMatch = matchlist(a:arguments, '^\(\i\@!\S\)\(.\{-}\)\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<!\1\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<! \(.*\)$')
+    if ! empty(l:optionalPatternMatch)
+	let [l:pattern, l:fileglobs] = l:optionalPatternMatch[2:3]
+
+	" Unescape the regexp delimiter.
+	let l:pattern = substitute(l:pattern, '\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<!\\' . l:optionalPatternMatch[1], l:optionalPatternMatch[1], 'g')
     endif
 
     call GrepTasks#Grep(a:count, a:grepCommand, l:pattern, l:fileglobs)
