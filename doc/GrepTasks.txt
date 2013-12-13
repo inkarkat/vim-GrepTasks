@@ -117,6 +117,7 @@ IDEAS							     *GrepTasks-ideas*
 HISTORY							   *GrepTasks-history*
 
 1.01	RELEASEME
+- FIX: Use the rules for the /pattern/ separator as stated in :help E146.
 - Add dependency to ingo-library (vimscript #4433).
 
 1.00	27-Aug-2012
