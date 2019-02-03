@@ -26,6 +26,8 @@ GrepCommands.vim plugins).
 
 - TaskList.vim ([vimscript #2607](http://www.vim.org/scripts/script.php?script_id=2607)) searches only the current file triggered by a
   mapping, and displays in a scratch buffer.
+- remaining-todos ([vimscript #5571](http://www.vim.org/scripts/script.php?script_id=5571)) warns the user that there are a certain
+  number of TODO marks when leaving a file.
 
 USAGE
 ------------------------------------------------------------------------------
@@ -125,7 +127,7 @@ __You need to separately
 - Started development.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2012-2018 Ingo Karkat -
+Copyright: (C) 2012-2019 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
 Maintainer:     Ingo Karkat <ingo@karkat.de>
