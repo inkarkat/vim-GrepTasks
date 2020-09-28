@@ -3,7 +3,7 @@
 " DEPENDENCIES:
 "   - ingo/msg.vim autoload script
 "
-" Copyright: (C) 2012-2014 Ingo Karkat
+" Copyright: (C) 2012-2020 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -49,7 +49,7 @@ function! GrepTasks#FileGrep( count, grepCommand, arguments )
 	let l:pattern = substitute(l:pattern, '\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<!\\' . l:optionalPatternMatch[1], l:optionalPatternMatch[1], 'g')
     endif
 
-    call GrepTasks#Grep(a:count, a:grepCommand, l:pattern, l:fileglobs)
+    call GrepTasks#Grep(a:count, a:grepCommand, l:pattern, ingo#escape#file#CmdlineSpecialEscape(l:fileglobs))
 endfunction
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
