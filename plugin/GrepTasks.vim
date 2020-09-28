@@ -1,27 +1,13 @@
 " GrepTasks.vim: Grep for tasks and TODO markers.
 "
 " DEPENDENCIES:
-"   - GrepTasks.vim autoload script
 "   - GrepHere plugin for :GrepHere command
 "   - GrepCommands plugin for :ArgGrep, :BufGrep, :WinGrep, :TabGrep commands
 "
-" Copyright: (C) 2012 Ingo Karkat
+" Copyright: (C) 2012-2020 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.01.006	05-Nov-2012	Remove -complete=expression; it's not useful for
-"				completing regexp patterns.
-"   1.00.005	26-Aug-2012	Use <q-args>; due to its escaping, <f-args> is
-"				fundamentally flawed for use with arbitrary
-"				filespecs.
-"   1.00.004	25-Aug-2012	Change g:GrepTasks_JumpToFirst to more general
-"				g:GrepTasks_GrepFlags.
-"	003	04-May-2012	Rename :GrepTasks to :VimGrepTasks to make it
-"				clear which syntax for {file} is used.
-"	002	20-Mar-2012	Support optional /{pattern}/ for :GrepTasks.
-"	001	19-Mar-2012	file creation
 
 " Avoid installing twice or when in unsupported Vim version.
 if exists('g:loaded_GrepTasks') || (v:version < 700)
