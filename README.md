@@ -113,7 +113,7 @@ https://github.com/inkarkat/vim-GrepTasks/issues or email (address below).
 HISTORY
 ------------------------------------------------------------------------------
 
-##### 1.02    RELEASEME
+##### 1.02    10-Nov-2024
 - FIX: Problems when :VimGrepTasks of files containing a cmdline-special
   character (e.g. #).
 
@@ -133,7 +133,7 @@ __You need to separately
 - Started development.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2012-2020 Ingo Karkat -
+Copyright: (C) 2012-2024 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
 Maintainer:     Ingo Karkat &lt;ingo@karkat.de&gt;
